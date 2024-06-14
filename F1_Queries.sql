@@ -20,7 +20,7 @@ WITH RankedWins AS (
     JOIN F1_Project.dbo.results$ res ON d.driverID = res.driverId
     JOIN F1_Project.dbo.races$ r ON res.raceId = r.raceId
     where CONCAT(d.forename,' ',d.surname) IN 
-('Lewis Hamilton', 'Fernando Alonso', 'Pierre Gasly', 'Nico Hülkenberg', 'Sergio Pérez', 'Daniel Ricciardo', 'Valtteri Bottas', 'Kevin Magnussen', 'Max Verstappen', 'Carlos Sainz', 'Esteban Ocon', 'Lance Stroll', 'Charles Leclerc', 'Lando Norris', 'George Russell', 'Alexander Albon', 'Yuki Tsunoda', 'Guanyu Zhou', 'Oscar Piastri', 'Logan Sargeant')
+('Lewis Hamilton', 'Fernando Alonso', 'Pierre Gasly', 'Nico Hülkenberg', 'Sergio PÃ©rez', 'Daniel Ricciardo', 'Valtteri Bottas', 'Kevin Magnussen', 'Max Verstappen', 'Carlos Sainz', 'Esteban Ocon', 'Lance Stroll', 'Charles Leclerc', 'Lando Norris', 'George Russell', 'Alexander Albon', 'Yuki Tsunoda', 'Guanyu Zhou', 'Oscar Piastri', 'Logan Sargeant')
 
 
     AND res.position = 1
@@ -36,7 +36,7 @@ FROM F1_Project.dbo.drivers$ d
 LEFT JOIN RankedWins rw ON d.driverId = rw.driverId AND rw.rn = 1
 WHERE d.forename IN ('Max', 'Sergio', 'Charles', 'Carlos', 'Oscar', 'Lando', 'Lewis', 'George', 'Fernando', 'Lance', 'Daniel', 'Yuki', 'Nico','Kevin', 'Guanyu', 'Valtteri', 'Alexander', 'Logan', 'Esteban', 'Pierre')
 AND d.number IN (33, 27, 81, 10, 11, 77, 22, 23, 55, 16, 3, 31, 14, 63, 24, 18, 4, 44, 2,20)
-;
+order by yearofwin desc;
 
 
 
