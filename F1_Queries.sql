@@ -165,7 +165,7 @@ join F1_Project.dbo.drivers$ c on a.driverId = c.driverId)
 select x.fullname, ROUND(AVG(COALESCE(x.position,20)),1) as avgr
 from driver_pos x join selected_races y on x.raceId = y.raceId
 group by x.fullname
-order by avg_pos
+order by avgr
 
 
 /*Same approach as earlier one for constructors as well.*/
@@ -192,7 +192,7 @@ order by avg_pos
 
 ----------------------------------------------------------------------------------------------------------------------
 
---Query 8: Fastest laps in all races from year 2021-2023
+--Query 8: Fastest laps in all races from year 2021-2022
 
 /* A slightly tricky query wherein I had to spend a lot of time. In the fast_laps CTE, the query identifies the fastest lap for each race by joining the lap times with the minimum lap times calculated per race. The ROW_NUMBER() function ranks the laps within each race, ensuring only the fastest lap is highlighted. The problem here is that lap time precision is not provided. Hence the laptimes are similar for lot of drivers. In the second CTE, races within a specific year range are selected. In the main query, these two CTEs are joined with the drivers table, and only the fastest laps (ranked as 1) are displayed.  */
 
@@ -213,14 +213,14 @@ WITH fast_laps AS (
 select_races AS (
     SELECT raceId, name, year
     FROM F1_Project.dbo.races$ 
-    WHERE year BETWEEN 2021 AND 2023
+    WHERE year BETWEEN 2021 AND 2022
 )
 
 SELECT b.name, b.year, CONVERT(VARCHAR(12), fast_lap, 114) as fastest_lap , CONCAT(c.forename, ' ', c.surname) AS fullname
 FROM fast_laps a 
 JOIN select_races b ON a.raceId = b.raceId
 JOIN F1_Project.dbo.drivers$ c ON a.driverId = c.driverId
-WHERE a.lap_rank = 1
+WHERE a.lap_rank = 1 
 ORDER BY b.year;
 
 
@@ -261,7 +261,7 @@ on a.raceId = b.raceId
 join drivers c
 on a.driverId = c.driverId
 where c.fullname = 'Lewis Hamilton'
-and a.position between 1 and 10 
+and a.position between 10 and 15 
 
 
 
